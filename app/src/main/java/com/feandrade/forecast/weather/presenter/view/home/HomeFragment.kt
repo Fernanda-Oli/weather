@@ -13,17 +13,22 @@ import com.feandrade.forecast.weather.core.Status
 import com.feandrade.forecast.weather.databinding.FragmentHomeOneBinding
 import com.feandrade.forecast.weather.domain.di.home.HomeComponent
 import com.feandrade.forecast.weather.presenter.viewmodel.HomeViewModel
+import com.feandrade.forecast.weather.utils.hideKeyboard
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import kotlin.math.ln
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), OnMapReadyCallback {
 
     private val homeViewModel by viewModel<HomeViewModel>()
     private lateinit var binding: FragmentHomeOneBinding
     private lateinit var editTextValue: String
+    private lateinit var map: GoogleMap
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,13 +49,16 @@ class HomeFragment : Fragment() {
 
     }
 
-    fun onMapReady(googleMap: GoogleMap) {
-        if (getLatLog().isNotEmpty())
-        googleMap.addMarker(
-            MarkerOptions()
-                .position(LatLng(getLatLog().toDouble(),getLog().toDouble()))
-                .title("")
-        )
+    override fun onMapReady(googleMap: GoogleMap) {
+        map = googleMap
+    }
+
+    private fun setMarker(latLng : LatLng) {
+//        val latLng = LatLng(lat, lng)
+        map.clear()
+        map.addMarker(MarkerOptions().position(latLng))
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12f))
+        view?.let { activity?.hideKeyboard(it) }
     }
 
     private fun initView() {
@@ -77,7 +85,7 @@ class HomeFragment : Fragment() {
             when (it.status) {
                 Status.SUCCESS -> {
                     it.data?.let { response ->
-                        homeViewModel.saveUserLatLog(response.coord.lat.toString(), response.coord.lon.toString())
+                        homeViewModel.getLatLng(response.coord.lat, response.coord.lon)
                     }
                 }
                 Status.ERROR -> {
@@ -90,12 +98,13 @@ class HomeFragment : Fragment() {
                 }
             }
         }
+        homeViewModel._latLng.observe(viewLifecycleOwner) {
+            setMarker(it)
+
+        }
     }
 
     private fun getCity(): String = homeViewModel.getSaveCity()
-
-    private fun getLatLog() = homeViewModel.getSaveLatLog()
-    private fun getLog() = homeViewModel.getSaveLog()
 
     private fun getWeather() =
         homeViewModel.getAllWeatherData(getCity(), BuildConfig.API_KEY)

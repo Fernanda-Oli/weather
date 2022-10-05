@@ -28,9 +28,9 @@ class HomeViewModel(
 
     private val _enterSaveCity = MutableLiveData<String>()
 
-    private val _enterSaveLatLog = MutableLiveData<String>()
-    private val _enterSaveLog = MutableLiveData<String>()
-
+    val _latLng = MutableLiveData<LatLng>()
+//    val latLng = LiveData<LatLng>
+//    get() = _latLng
 
     fun getAllWeatherData(q: String, apiKey: String) = viewModelScope.launch {
         try {
@@ -44,16 +44,9 @@ class HomeViewModel(
         }
     }
 
-    fun onMapReady(googleMap: GoogleMap) {
-        if (getSaveLatLog().isNotEmpty())
-            googleMap.addMarker(
-                MarkerOptions()
-                    .position()
-                    .title("")
-            )
+    fun getLatLng(lat : Double, lng : Double){
+        _latLng.value = LatLng(lat, lng)
     }
-
-    private fun MarkerOptions.position(lat : Double, log : Double): MarkerOptions = position()
 
     fun getSaveCity() : String{
         cache.getData(SharedPreference.CITY)?.let {
@@ -62,37 +55,9 @@ class HomeViewModel(
         return _enterSaveCity.value.toString()
     }
 
-    fun getSaveLatLog() : String {
-        cache.getData(SharedPreference.LAT)?.let {
-            _enterSaveLatLog.value = it
-        }
-        return _enterSaveLatLog.value.toString()
-    }
-
-    fun getSaveLog() : String {
-        cache.getData(SharedPreference.LOG)?.let {
-            _enterSaveLog.value = it
-        }
-        return _enterSaveLog.value.toString()
-    }
-
     fun saveUserCity(city: String) {
         if (city != _enterSaveCity.value)
             cache.saveData(SharedPreference.CITY, city)
-    }
-
-    private fun excludeDataLatLog(){
-        if (!cache.deleteData(SharedPreference.LAT).equals(_enterSaveLatLog.value)) {
-            cache.deleteData(SharedPreference.LAT)
-            cache.deleteData(SharedPreference.LOG)
-        }
-    }
-
-    fun saveUserLatLog(latLog: String, log: String) {
-        if (latLog != _enterSaveLatLog.value)
-            excludeDataLatLog()
-            cache.saveData(SharedPreference.LAT, latLog)
-            cache.saveData(SharedPreference.LOG, log)
     }
 }
 

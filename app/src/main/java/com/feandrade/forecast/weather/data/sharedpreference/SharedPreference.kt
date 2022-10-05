@@ -10,9 +10,6 @@ class SharedPreference(context: Context) : DataStorage {
  companion object{
      private const val CACHENAME = "WEATHERCACHE"
      const val CITY = "CITY"
-     const val LAT = "LAT"
-     const val LOG = "LOG"
-
  }
     private val sharedPref : SharedPreferences = context.getSharedPreferences(CACHENAME, Context.MODE_PRIVATE)
 

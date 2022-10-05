@@ -1,4 +1,4 @@
-package com.feandrade.forecast.weather
+package com.feandrade.forecast.weather.appaplication
 
 import android.app.Application
 import com.feandrade.forecast.weather.koin.RetrofitModule
