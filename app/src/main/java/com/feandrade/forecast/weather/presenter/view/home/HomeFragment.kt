@@ -7,11 +7,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.feandrade.forecast.weather.BuildConfig
 import com.feandrade.forecast.weather.R
 import com.feandrade.forecast.weather.core.Status
+import com.feandrade.forecast.weather.data.model.WeatherForecast
 import com.feandrade.forecast.weather.databinding.FragmentHomeOneBinding
 import com.feandrade.forecast.weather.domain.di.home.HomeComponent
+import com.feandrade.forecast.weather.presenter.adapter.WeatherInfosAdapter
 import com.feandrade.forecast.weather.presenter.viewmodel.HomeViewModel
 import com.feandrade.forecast.weather.utils.hideKeyboard
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -21,13 +24,13 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import kotlin.math.ln
 
 class HomeFragment : Fragment(), OnMapReadyCallback {
 
     private val homeViewModel by viewModel<HomeViewModel>()
     private lateinit var binding: FragmentHomeOneBinding
     private lateinit var editTextValue: String
+    private lateinit var weatherAdapter : WeatherInfosAdapter
     private lateinit var map: GoogleMap
 
     override fun onCreateView(
@@ -54,7 +57,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun setMarker(latLng : LatLng) {
-//        val latLng = LatLng(lat, lng)
         map.clear()
         map.addMarker(MarkerOptions().position(latLng))
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12f))
@@ -86,6 +88,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
                 Status.SUCCESS -> {
                     it.data?.let { response ->
                         homeViewModel.getLatLng(response.coord.lat, response.coord.lon)
+                        setRecyclerViewForBreakingNews(listOf(response))
                     }
                 }
                 Status.ERROR -> {
@@ -103,6 +106,22 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
 
         }
     }
+
+    private fun setRecyclerViewForBreakingNews(list: List<WeatherForecast>) {
+        setAdapter(list)
+        with(binding.rvInfoWeather) {
+            layoutManager = LinearLayoutManager(requireContext())
+            setHasFixedSize(true)
+            adapter = weatherAdapter
+        }
+    }
+
+    private fun setAdapter(list: List<WeatherForecast>) {
+        weatherAdapter = WeatherInfosAdapter(list.toMutableList()) { fazerAlgumaCoisaNoClique ->
+
+        }
+    }
+
 
     private fun getCity(): String = homeViewModel.getSaveCity()
 

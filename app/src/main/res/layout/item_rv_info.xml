@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_border_container_info_"
+    android:padding="10dp">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardElevation="@dimen/cardview_compat_inset_shadow"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_border_card_info"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imgV_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="22dp"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_title"
+                android:src="@mipmap/ic_launcher" />
+
+            <TextView
+                android:id="@+id/txt_temp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Temp."
+                app:layout_constraintBottom_toTopOf="@id/txt_temp_value"
+                app:layout_constraintEnd_toEndOf="@+id/txt_temp_value"
+                app:layout_constraintStart_toStartOf="@+id/txt_temp_value"
+                app:layout_constraintTop_toTopOf="@+id/imgV_icon" />
+
+            <TextView
+                android:id="@+id/txt_temp_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:text="23°C"
+                android:textSize="32sp"
+                app:layout_constraintBottom_toBottomOf="@+id/imgV_icon"
+                app:layout_constraintEnd_toStartOf="@id/view"
+                app:layout_constraintStart_toEndOf="@id/imgV_icon"
+                app:layout_constraintTop_toBottomOf="@id/txt_temp" />
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="1dp"
+                android:layout_height="0dp"
+                android:layout_margin="10dp"
+                android:background="@color/color_views"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/txt_tem_min"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txt_tem_min"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="Temp. min."
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txt_temp_min_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@+id/txt_tem_min"
+                app:layout_constraintStart_toStartOf="@+id/txt_tem_min"
+                app:layout_constraintTop_toBottomOf="@+id/txt_tem_min" />
+
+            <TextView
+                android:id="@+id/txt_tem_max"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="Temp. max."
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="@+id/txt_tem_min"
+                app:layout_constraintStart_toStartOf="@+id/txt_tem_min"
+                app:layout_constraintTop_toBottomOf="@+id/txt_temp_min_value" />
+
+            <TextView
+                android:id="@+id/txt_temp_max_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@+id/txt_tem_max"
+                app:layout_constraintStart_toStartOf="@+id/txt_tem_max"
+                app:layout_constraintTop_toBottomOf="@+id/txt_tem_max" />
+
+            <TextView
+                android:id="@+id/txt_title"
+                style="@style/CardInfoRV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hoje em, %s"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Mogi das Cruzes" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,10 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/feandrade/AndroidStudioProjects/WeatherForecast/app/src/main/res/drawable/shape_border_card_info.xml" value="0.187" />
+        <entry key="..\:/Users/feandrade/AndroidStudioProjects/WeatherForecast/app/src/main/res/drawable/shape_border_container_info_.xml" value="0.187" />
         <entry key="..\:/Users/feandrade/AndroidStudioProjects/WeatherForecast/app/src/main/res/layout/activity_home.xml" value="0.1921875" />
         <entry key="..\:/Users/feandrade/AndroidStudioProjects/WeatherForecast/app/src/main/res/layout/activity_main.xml" value="0.12092391304347826" />
         <entry key="..\:/Users/feandrade/AndroidStudioProjects/WeatherForecast/app/src/main/res/layout/fragment_home.xml" value="0.25" />
         <entry key="..\:/Users/feandrade/AndroidStudioProjects/WeatherForecast/app/src/main/res/layout/fragment_home_one.xml" value="0.33" />
+        <entry key="..\:/Users/feandrade/AndroidStudioProjects/WeatherForecast/app/src/main/res/layout/item_rv_info.xml" value="0.31875607385811466" />
       </map>
     </option>
   </component>

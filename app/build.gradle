@@ -19,6 +19,7 @@ android {
 
         buildConfigField "String", "API_KEY", "\"e6b512924dbc0e46ba15f28047c8f277\""
         buildConfigField "String", "BASE_URL", "\"https://api.openweathermap.org/\""
+        buildConfigField "String", "BASE_URL_IMAGE", "\"http://openweathermap.org/img/wn/%s@2x.png\""
 
     }
 
@@ -104,6 +105,10 @@ dependencies {
     // Saved state module for ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version")
 
+    // Glide
+    implementation "com.github.bumptech.glide:glide:$glide_version"
+    annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
 
 
+    implementation 'com.squareup.picasso:picasso:2.8'
 }
