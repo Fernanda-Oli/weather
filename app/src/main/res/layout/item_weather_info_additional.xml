@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="8dp"
+    app:cardUseCompatPadding="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/txt_humid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Humid."
+            android:padding="8dp"
+            app:layout_constraintBottom_toTopOf="@id/txt_humid_value"
+            app:layout_constraintEnd_toEndOf="@+id/txt_humid_value"
+            app:layout_constraintStart_toStartOf="@+id/txt_humid_value" />
+
+        <TextView
+            android:id="@+id/txt_humid_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="00 %"
+            android:padding="8dp"
+            android:textSize="32sp"
+            app:layout_constraintEnd_toStartOf="@id/view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_humid" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:layout_margin="10dp"
+            android:background="@color/color_views"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/txt_speed_value"
+            app:layout_constraintStart_toEndOf="@+id/txt_description"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txt_wind"
+            style="@style/CardInfoRV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Wind"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/txt_description"
+            app:layout_constraintEnd_toEndOf="@+id/txt_speed"
+            app:layout_constraintStart_toStartOf="@+id/txt_speed"
+            app:layout_constraintTop_toTopOf="@+id/txt_description" />
+
+        <TextView
+            android:id="@+id/txt_speed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Speed"
+            android:padding="4dp"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.572"
+            app:layout_constraintStart_toEndOf="@id/view"
+            app:layout_constraintTop_toBottomOf="@+id/txt_wind" />
+
+        <TextView
+            android:id="@+id/txt_speed_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="00"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@+id/txt_speed"
+            app:layout_constraintStart_toStartOf="@+id/txt_speed"
+            app:layout_constraintTop_toBottomOf="@+id/txt_speed" />
+
+        <TextView
+            android:id="@+id/txt_pressure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pressure"
+            android:padding="4dp"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@+id/txt_speed"
+            app:layout_constraintStart_toStartOf="@+id/txt_speed"
+            app:layout_constraintTop_toBottomOf="@+id/txt_speed_value" />
+
+        <TextView
+            android:id="@+id/txt_pressure_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="00"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@+id/txt_pressure"
+            app:layout_constraintStart_toStartOf="@+id/txt_pressure"
+            app:layout_constraintTop_toBottomOf="@+id/txt_pressure" />
+
+        <TextView
+            android:id="@+id/txt_description"
+            style="@style/CardInfoRV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/txt_humid"
+            app:layout_constraintEnd_toEndOf="@id/txt_humid"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Few Clouds" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

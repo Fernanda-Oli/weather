@@ -30,12 +30,12 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
     private val homeViewModel by viewModel<HomeViewModel>()
     private lateinit var binding: FragmentHomeOneBinding
     private lateinit var editTextValue: String
-    private lateinit var weatherAdapter : WeatherInfosAdapter
+    private lateinit var weatherAdapter: WeatherInfosAdapter
     private lateinit var map: GoogleMap
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         binding = FragmentHomeOneBinding.inflate(inflater, container, false)
         return binding.root
@@ -44,7 +44,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         HomeComponent.inject()
-
         val mapFragment = childFragmentManager.findFragmentById(R.id.frag_map) as SupportMapFragment
         mapFragment.getMapAsync{onMapReady(it)}
         initView()
@@ -56,7 +55,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         map = googleMap
     }
 
-    private fun setMarker(latLng : LatLng) {
+    private fun setMarker(latLng: LatLng) {
         map.clear()
         map.addMarker(MarkerOptions().position(latLng))
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12f))
@@ -88,7 +87,8 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
                 Status.SUCCESS -> {
                     it.data?.let { response ->
                         homeViewModel.getLatLng(response.coord.lat, response.coord.lon)
-                        setRecyclerViewForBreakingNews(listOf(response))
+                        binding.rvInfoWeather.visibility = View.VISIBLE
+                        setRecyclerViewForBreakingNews(response)
                     }
                 }
                 Status.ERROR -> {
@@ -107,8 +107,8 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
-    private fun setRecyclerViewForBreakingNews(list: List<WeatherForecast>) {
-        setAdapter(list)
+    private fun setRecyclerViewForBreakingNews(weather: WeatherForecast) {
+        setAdapter(weather)
         with(binding.rvInfoWeather) {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
@@ -116,18 +116,14 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
-    private fun setAdapter(list: List<WeatherForecast>) {
-        weatherAdapter = WeatherInfosAdapter(list.toMutableList()) { fazerAlgumaCoisaNoClique ->
+    private fun setAdapter(weather: WeatherForecast) {
+        weatherAdapter = WeatherInfosAdapter(requireContext(), weather) { fazerAlgumaCoisaNoClique ->
 
         }
     }
-
 
     private fun getCity(): String = homeViewModel.getSaveCity()
 
     private fun getWeather() =
         homeViewModel.getAllWeatherData(getCity(), BuildConfig.API_KEY)
-
-
-
 }
