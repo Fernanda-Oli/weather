@@ -110,7 +110,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
     private fun setRecyclerViewForBreakingNews(weather: WeatherForecast) {
         setAdapter(weather)
         with(binding.rvInfoWeather) {
-            layoutManager = LinearLayoutManager(requireContext())
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL , false)
             setHasFixedSize(true)
             adapter = weatherAdapter
         }

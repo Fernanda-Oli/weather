@@ -5,15 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <fragment
         android:id="@+id/frag_map"
         class="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBaseline_toBottomOf="parent"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rv_info_weather"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/inputLayoutCity"
@@ -21,7 +22,7 @@
         android:layout_margin="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rv_info_weather">
+        app:layout_constraintTop_toBottomOf="@id/rv_info_weather">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/cityTextEDT"
@@ -48,12 +49,12 @@
         android:id="@+id/rv_info_weather"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:visibility="gone"
+        android:visibility="visible"
+        android:scrollbars="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/frag_map"
         tools:itemCount="1"
         tools:listitem="@layout/item_rv_info" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
