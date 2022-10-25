@@ -10,11 +10,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.feandrade.forecast.weather.BuildConfig
 import com.feandrade.forecast.weather.R
-import com.feandrade.forecast.weather.data.model.WeatherForecast
+import com.feandrade.forecast.weather.data.model.newsmodel.Article
+import com.feandrade.forecast.weather.data.model.weathermodel.WeatherForecast
 
 class WeatherInfosAdapter(
     val context: Context,
-    private val listWeatherForecast: WeatherForecast,
+    private val weatherForecast: WeatherForecast,
+    private val newsListItem: MutableList<Article>,
     private val itemListener: ((weather: WeatherForecast) -> Unit),
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -48,17 +50,17 @@ class WeatherInfosAdapter(
         }
     }
 
-    override fun getItemCount(): Int = 3
+    override fun getItemCount(): Int = 2 + newsListItem.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is InfoWeatherViewHolder -> {
-                holder.bind(listWeatherForecast)
+                holder.bind(weatherForecast)
             }
             is InfoAddViewHolder -> {
-                holder.bind(listWeatherForecast)
+                holder.bind(weatherForecast)
             }
-            is InfoBreakNewsViewHolder -> holder.bind()
+            is InfoBreakNewsViewHolder -> holder.bind(newsListItem[position])
         }
     }
 
@@ -105,14 +107,20 @@ class WeatherInfosAdapter(
     }
 
     class InfoBreakNewsViewHolder(view: View, private val context: Context) : RecyclerView.ViewHolder(view) {
-        fun bind() {
+        fun bind(article: Article) {
             val imageNews : ImageView = itemView.findViewById(R.id.imageNews)
             val textTitle : TextView = itemView.findViewById(R.id.textTitle)
+            val textSource : TextView = itemView.findViewById(R.id.textSource)
+            val textDescription : TextView = itemView.findViewById(R.id.textDescription)
+            val textPublishedAt : TextView = itemView.findViewById(R.id.textPublishedAt)
 
-            textTitle.text = "NEWS APP"
+            textTitle.text = article.title.toString()
+            textSource.text = article.source?.name
+            textDescription.text = article.description
+            textPublishedAt.text = article.publishedAt
 
             Glide.with(context)
-                .load(R.drawable.ic_launcher_foreground)
+                .load(article.urlToImage)
                 .into(imageNews)
         }
 

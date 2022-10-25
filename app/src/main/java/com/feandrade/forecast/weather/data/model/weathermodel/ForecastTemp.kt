@@ -1,4 +1,4 @@
-package com.feandrade.forecast.weather.data.model
+package com.feandrade.forecast.weather.data.model.weathermodel
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName

@@ -11,11 +11,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.feandrade.forecast.weather.BuildConfig
 import com.feandrade.forecast.weather.R
 import com.feandrade.forecast.weather.core.Status
-import com.feandrade.forecast.weather.data.model.WeatherForecast
+import com.feandrade.forecast.weather.data.model.newsmodel.Article
+import com.feandrade.forecast.weather.data.model.newsmodel.NewsResponse
+import com.feandrade.forecast.weather.data.model.weathermodel.WeatherForecast
 import com.feandrade.forecast.weather.databinding.FragmentHomeOneBinding
 import com.feandrade.forecast.weather.domain.di.home.HomeComponent
 import com.feandrade.forecast.weather.presenter.adapter.WeatherInfosAdapter
 import com.feandrade.forecast.weather.presenter.viewmodel.HomeViewModel
+import com.feandrade.forecast.weather.utils.DataModel
 import com.feandrade.forecast.weather.utils.hideKeyboard
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -31,6 +34,8 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
     private lateinit var binding: FragmentHomeOneBinding
     private lateinit var editTextValue: String
     private lateinit var weatherAdapter: WeatherInfosAdapter
+    private lateinit var weatherForecast: WeatherForecast
+    private lateinit var listNews: List<Article>
     private lateinit var map: GoogleMap
 
     override fun onCreateView(
@@ -45,7 +50,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         super.onViewCreated(view, savedInstanceState)
         HomeComponent.inject()
         val mapFragment = childFragmentManager.findFragmentById(R.id.frag_map) as SupportMapFragment
-        mapFragment.getMapAsync{onMapReady(it)}
+        mapFragment.getMapAsync { onMapReady(it) }
         initView()
         observerVMEvents()
 
@@ -70,6 +75,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
     private fun callSendResponse() {
         binding.imgArrow.setOnClickListener {
             getWeather()
+            getSearcNews(getCity(), 1)
         }
     }
 
@@ -82,13 +88,32 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun observerVMEvents() {
+        homeViewModel.responseNews.observe(viewLifecycleOwner){
+            when (it.status) {
+                Status.SUCCESS -> {
+                    it.data?.let { response ->
+                        listNews = response.articles
+                        setRecyclerViewForBreakingNews(weatherForecast, response.articles)
+                    }
+                }
+                Status.ERROR -> {
+                    Toast.makeText(requireContext(), "NewsError: ${it.error}", Toast.LENGTH_SHORT)
+                        .show()
+                }
+
+                Status.LOADING -> {
+
+                }
+            }
+        }
         homeViewModel.response.observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> {
                     it.data?.let { response ->
+                        weatherForecast = response
                         homeViewModel.getLatLng(response.coord.lat, response.coord.lon)
                         binding.rvInfoWeather.visibility = View.VISIBLE
-                        setRecyclerViewForBreakingNews(response)
+                        setRecyclerViewForBreakingNews(response, listNews)
                     }
                 }
                 Status.ERROR -> {
@@ -107,19 +132,25 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
-    private fun setRecyclerViewForBreakingNews(weather: WeatherForecast) {
-        setAdapter(weather)
+    private fun setRecyclerViewForBreakingNews(weather: WeatherForecast, listNews : List<Article>) {
+        setAdapter(weather, listNews)
         with(binding.rvInfoWeather) {
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL , false)
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             setHasFixedSize(true)
             adapter = weatherAdapter
         }
     }
 
-    private fun setAdapter(weather: WeatherForecast) {
-        weatherAdapter = WeatherInfosAdapter(requireContext(), weather) { fazerAlgumaCoisaNoClique ->
+    private fun setAdapter(weather: WeatherForecast, listNews : List<Article>) {
+        weatherAdapter =
+            WeatherInfosAdapter(requireContext(), weather, listNews.toMutableList()) { fazerAlgumaCoisaNoClique ->
 
-        }
+            }
+    }
+
+    private fun getSearcNews(search: String, page: Int) {
+        homeViewModel.getSearchNews(search, page, BuildConfig.API_KEY_NEWS)
     }
 
     private fun getCity(): String = homeViewModel.getSaveCity()

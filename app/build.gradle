@@ -18,7 +18,9 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField "String", "API_KEY", "\"e6b512924dbc0e46ba15f28047c8f277\""
+        buildConfigField "String", "API_KEY_NEWS", "\"9f4e4959fc024514a9332da9b6660718\""
         buildConfigField "String", "BASE_URL", "\"https://api.openweathermap.org/\""
+        buildConfigField "String", "BASE_URL_NEWS", "\"https://newsapi.org\""
         buildConfigField "String", "BASE_URL_IMAGE", "\"http://openweathermap.org/img/wn/%s@2x.png\""
 
     }
