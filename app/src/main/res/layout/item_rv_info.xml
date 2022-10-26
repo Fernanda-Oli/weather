@@ -6,11 +6,15 @@
     android:layout_height="wrap_content"
     app:cardElevation="8dp"
     app:cardCornerRadius="10dp"
-    app:cardUseCompatPadding="true">
+    android:layout_margin="4dp"
+    android:backgroundTint="@color/cardview_shadow_end_color"
+    >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:cardCornerRadius="10dp"
+            android:background="@color/white_transparent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -55,7 +59,9 @@
                 android:id="@+id/view"
                 android:layout_width="1dp"
                 android:layout_height="0dp"
-                android:layout_margin="10dp"
+                android:layout_margin="16dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
                 android:background="@color/color_views"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/txt_tem_min"

@@ -8,5 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="color_views">#7E6666</color>
-    <color name="white_transp">#23929090</color>
+    <color name="white_transp">#68929090</color>
+    <color name="teste">#B2FFFFFF</color>
+    <color name="white_transparent">#95FFFFFF</color>
 </resources>

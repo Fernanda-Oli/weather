@@ -106,6 +106,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
                 }
             }
         }
+
         homeViewModel.response.observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> {

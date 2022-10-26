@@ -14,15 +14,17 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rv_info_weather"/>
+        app:layout_constraintTop_toTopOf="@+id/rv_info_weather" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/inputLayoutCity"
         style="@style/FormEditTextInput"
-        android:layout_margin="10dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rv_info_weather">
+        app:layout_constraintTop_toBottomOf="@+id/rv_info_weather">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/cityTextEDT"
@@ -49,12 +51,11 @@
         android:id="@+id/rv_info_weather"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:visibility="visible"
         android:scrollbars="horizontal"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/frag_map"
         tools:itemCount="1"
         tools:listitem="@layout/item_rv_info" />
 </androidx.constraintlayout.widget.ConstraintLayout>

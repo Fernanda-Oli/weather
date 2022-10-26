@@ -4,13 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="10dp"
     app:cardElevation="8dp"
-    app:cardUseCompatPadding="true">
+    app:cardCornerRadius="10dp"
+    android:layout_margin="4dp"
+    android:backgroundTint="@color/cardview_shadow_end_color">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:background="@color/white_transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,70 +20,31 @@
 
         <ImageView
             android:id="@+id/imageNews"
-            android:layout_width="160dp"
-            android:layout_height="90dp"
-            android:scaleType="centerCrop"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:src="@drawable/ic_launcher_background" />
-
-        <TextView
-            android:id="@+id/textSource"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="16dp"
-            android:text="Source"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageNews"
-            tools:text="Source" />
-
-        <TextView
-            android:id="@+id/textPublishedAt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:layout_constraintStart_toStartOf="@+id/textSource"
-            app:layout_constraintTop_toBottomOf="@+id/textSource"
-            tools:text="publishedAt" />
-
-        <TextView
-            android:id="@+id/textTitle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:ellipsize="end"
-            android:maxLines="3"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageNews"
-            app:layout_constraintTop_toTopOf="@+id/imageNews"
-            tools:text="Title" />
-
-        <TextView
-            android:id="@+id/textDescription"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:ellipsize="end"
-            android:maxLines="5"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/textTitle"
-            app:layout_constraintTop_toBottomOf="@+id/textTitle"
-            tools:text="Description text" />
-
-        <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="4dp"
-            android:background="@android:color/darker_gray"
+            android:layout_height="140dp"
+            android:layout_margin="9dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_launcher_background"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textPublishedAt" />
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="11dp"
+            android:background="@color/white_transparent"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:padding="2dp"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/imageNews"
+            app:layout_constraintStart_toStartOf="@+id/imageNews"
+            tools:text="Title" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>
